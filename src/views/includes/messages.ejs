@@ -1,0 +1,25 @@
+<% if (errors !== undefined && errors.length > 0) { %>
+    <div class="row">
+        <div class="col my-3">
+            <div class="alert alert-danger">
+                <% errors.forEach(erro => { %>
+                    <%= erro %>
+                <% }) %>
+            </div>            
+        </div>
+    </div>    
+<% } %>
+<% if (messages !== undefined && messages.length > 0) { %>
+    <div class="row">
+        <div class="col my-3">
+            <div class="alert alert-info">
+                <% messages.forEach(message => { %>
+                    <%= message %>
+                <% }) %>
+            </div>            
+        </div>
+    </div>    
+<% } %>
+
+
+

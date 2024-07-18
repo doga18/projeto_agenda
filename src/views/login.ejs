@@ -1,0 +1,70 @@
+<%- include('includes/head'); %>
+<%- include('includes/nav'); %>
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-lg-2">
+
+      </div>
+
+      <div class="col-lg-8 my-3">
+          <h1 class="display-1 text-center">Login</h1>
+          <p class="text-center lead">
+            Efetue seu login
+          </p>
+      </div>
+
+      <%- include('includes/messages') %>
+
+      <div class="row">
+        <div class="col">
+            <h4>
+                Faça seu cadastro
+            </h4>
+
+            <form action="/login/register" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="mb-3">
+                  <label for="emailnew" class="form-label">Informe seu e-mail</label>
+                  <input type="email" class="form-control" id="emailnew" aria-describedby="emailnewhelp" name="emailnew">
+                  <div id="emailnewhelp" class="form-text">Seu endereço de e-mail não é compartilhado a nenhum terceiro.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="passwordNew" class="form-label">Senha</label>
+                  <input type="password" class="form-control" id="passwordNew" name="passwordnew">
+                </div>                
+                <button type="submit" class="btn btn-primary">Criar conta</button>
+            
+            </form>
+
+        </div>
+        <div class="col">
+            <h4>
+                Logue no sistema
+            </h4>
+            
+            <form action="/login/login" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="mb-3">
+                  <label for="emailLogin" class="form-label">Informe seu e-mail</label>
+                  <input type="email" class="form-control" id="emailLogin" aria-describedby="emailloginhelp" name="emaillogin">
+                  <div id="emailloginhelp" class="form-text">Seu endereço de e-mail não é compartilhado a nenhum terceiro.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="passwordlogin" class="form-label">Senha</label>
+                  <input type="password" class="form-control" id="passwordlogin" name="passwordlogin">
+                </div>                
+                <button type="submit" class="btn btn-primary">Realizar Login</button>
+            
+            </form>
+        </div>
+      </div>
+      
+      
+
+  </div>
+</div>
+
+
+<%- include('includes/footer'); %>
