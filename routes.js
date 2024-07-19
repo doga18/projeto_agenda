@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('./src/controllers/homeController');
 const loginController = require('./src/controllers/loginController');
+const dashboardController = require('./src/controllers/dashboardController');
 //const contatoController = require('./src/controllers/contatoController');
 
 
@@ -18,6 +19,12 @@ router.get('/', homeController.index)
 router.get('/login/index', loginController.index)
 router.post('/login/register', loginController.register)
 router.post('/login/login', loginController.login)
+// Logout
+router.get('/login/logout', loginController.logout)
+
+// Rotas do Dashboard
+router.get('/dashboard', dashboardController.index)
+
 // Rotas do contato
 //router.get('/contato', contatoController.paginaInicial);
 

@@ -55,13 +55,13 @@ class Login {
         // Busando o usuário na base de dados.
         try{
             this.user = await LoginModel.findOne({email: this.body.emaillogin});
-            console.log(this.user);
+            //console.log(this.user);
             if(this.user == null){
                 this.errors.push(`Usuário ou senha erradas!`);
                 console.log(`user null`);
                 return this.errors;
             }else{
-                (bcryptjs.compareSync(this.body.passwordlogin, this.user.password)) ? this.messages.push(`Logado com sucesso`) : this.errors.push(`Falha ao realizar o login.`);
+                (bcryptjs.compareSync(this.body.passwordlogin, this.user.password)) ? this.messages.push(`Logado com sucesso`) : this.errors.push(`Falha ao realizar o login.`, this.user = null);
             }            
         }catch(e){
             console.log(e);
@@ -76,7 +76,7 @@ class Login {
         try{
             console.log('Validei');
             const result = await LoginModel.findOne({email: this.body.emailnew})
-            console.log(result);
+            //console.log(result);
             if(result) this.errors.push(`O e-mail ${this.body.emailnew} já existe cadastrado no sistema, tente recuperar sua conta.`)
         }catch(e){
             console.log(e);
