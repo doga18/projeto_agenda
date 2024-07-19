@@ -6,7 +6,7 @@ exports.index = (req, res) => {
     if(req.session.user){
         return res.redirect('/dashboard')
     }
-    return res.render('login');
+    return  res.render('login');
 }
 
 exports.register = async (req, res) => {
@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
         if (login.errors.length >= 1) {
             req.flash('errors', login.errors);
             await req.session.save();
-            return res.redirect('/login/index');
+            return res.redirect('back');
         }
 
         

@@ -2,20 +2,19 @@
 <%- include('includes/nav'); %>
 
 
-<div class="container">  
+<div class="container" style="width: 1600px;">
   <div class="row">
-      <div class="col-lg-8 my-3">
-          <h1 class="display-1 text-center">Agenda</h1>
-          <p class="text-center lead">
-            Seus contatos estão abaixo!
-          </p>
-      </div>
-      
-      <%- include('includes/messages') %>
+    <div class="col-lg-8 my-3">
+      <h1 class="display-1 text-center">Agenda</h1>
+      <p class="text-center lead">
+        Seus contatos estão abaixo!
+      </p>
+    </div>
+    
+    <%- include('includes/messages') %>
 
-      
-
-      <div class="responsive-table">
+    <div class="col-12">
+      <div class="table-responsive">
         <table class="table my-3">
           <% if (contacts) { %>
             <thead class="text-centered">
@@ -25,41 +24,48 @@
                 <th scope="col">Tel</th>
                 <th scope="col">e-mail</th>
                 <th scope="col">Criado</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Excluir</th>
               </tr>
             </thead>
             <% contacts.forEach(contact => { %>
-              <tbody class="">                
-                  <tr>
-                    
-                      <td><%= contact.name %></td>
-                      <td><%= contact.lastname %></td>
-                      <td><%= contact.tel %></td>
-                      <td><%= contact.email %></td>
-                      <td>
-                        <% 
-                          const date = new Date(contact.createdAt);
-                          const day = date.getDate().toString().padStart(2, '0');
-                          const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                          const year = date.getFullYear();
-                          const formattedDate = `${day}/${month}/${year}`;
-                        %>
-                        <%= formattedDate %>
-                      </td>
-                      <td>
-                        <a href='/contato/index/<%=contact._id%>' target="_blank">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                          </svg>
-                        </a>
-                      </td>                    
-                  </tr>                
+              <tbody>
+                <tr>
+                  <td><%= contact.name %></td>
+                  <td><%= contact.lastname %></td>
+                  <td><%= contact.tel %></td>
+                  <td><%= contact.email %></td>
+                  <td>
+                    <% 
+                      const date = new Date(contact.createdAt);
+                      const day = date.getDate().toString().padStart(2, '0');
+                      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                      const year = date.getFullYear();
+                      const formattedDate = `${day}/${month}/${year}`;
+                    %>
+                    <%= formattedDate %>
+                  </td>
+                  <td title="Editar">
+                    <a href='/contato/index/<%=contact._id%>' target="_blank">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                  </td>
+                  <form action="/contato/delete" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="user_delete" value="<%=contact._id%>">
+                    <td title="Excluir Contato">
+                      <button class="btn" type="submit">
+                        <i class="bi bi-trash3-fill"></i>
+                      </button>
+                    </td>
+                  </form>
+                </tr>
               </tbody>              
             <% }) %>
           <% } %>          
         </table>
       </div>
-
+    </div>
   </div>
 </div>
 

@@ -35,6 +35,10 @@ router.post('/contato/register', loginRequired, contatoController.register);
 
 // Rota de Edit
 router.get('/contato/index/:id', loginRequired, contatoController.editIndex);
+router.post('/contato/edit/:id', loginRequired, contatoController.edit);
+
+// Rota para deletar o contato
+router.post('/contato/delete', loginRequired, contatoController.delete);
 //router.get('/contato', contatoController.paginaInicial);
 
 module.exports = router;

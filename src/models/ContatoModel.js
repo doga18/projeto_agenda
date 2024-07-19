@@ -15,6 +15,7 @@ const ContatoModel = mongoose.model('Contato', ContatoSchema);
 function Contato(body){
     this.body = body;
     this.errors = [];
+    this.messages = [];
     this.contato = null;
 }
 
@@ -54,6 +55,14 @@ Contato.prototype.cleanUp = function(){
     };
 }
 
+Contato.prototype.edit = async function(id) {
+    if(typeof id !== 'string') return;
+    this.valida();
+    if(this.errors.length > 0) return;
+    this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true});
+    
+}
+
 // Methods não instanciados
 
 // Busca de todos os contatos
@@ -62,19 +71,35 @@ Contato.listAll = async function(){
     var allcontacts = [];
 
     try{
-        allcontacts = await ContatoModel.find({});
+        // Assim trará, os contatos sem ordenamento
+        // allcontacts = await ContatoModel.find({});
+        // Para trazer via ordem de criação, crescente ou decrecente usamos dessa forma, 1 = crescente, -1 decrescente.
+        allcontacts = await ContatoModel.find().sort({ createdAt: -1 })
         console.log(allcontacts);
         return allcontacts
     }catch(e){
-
+        console.log(`Falha na busco do banco de dados.`)
     }
 }
 
 // Busca por contato específico
 
 Contato.buscaPorId =  async function(id){
+    if(typeof id !== 'string') return;
     const user = await ContatoModel.findById(id);
     return user;
+}
+
+// Deletar contato específico
+
+Contato.delete = async function(id){
+    if(typeof id !== 'string') return;
+    try{
+        const user_del = await ContatoModel.findByIdAndDelete({_id: id});
+        return user_del;
+    }catch(e){
+        console.log(e);
+    }
 }
 
 

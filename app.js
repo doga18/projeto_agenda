@@ -63,6 +63,7 @@ app.use(helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
+        //scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
         scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
         // Adicione outras diretivas conforme necessário
       }
@@ -87,6 +88,9 @@ app.use(globalMiddleware);
 
 // Falando pro express utilizar a routes.
 app.use(routes);
+
+// Servir arquivos estáticos a partir da pasta public
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.on('pronto', () => {
     app.listen(port, () => {
