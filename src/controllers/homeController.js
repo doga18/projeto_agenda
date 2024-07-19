@@ -1,4 +1,5 @@
 const HomeModel = require('../models/HomeModel');
+const ContatoModel = require('../models/ContatoModel');
 
 // HomeModel.create({
 //     titulo: "Um titulo de testes",
@@ -35,9 +36,17 @@ const HomeModel = require('../models/HomeModel');
 //     });
 // }
 
-exports.index = (req, res) => {
+exports.index = async (req, res) => {
     if(!req.session.user) return res.redirect('/login/index')
-    res.render('index');
+
+    var allcontacts = [];
+
+    // Coletando os contatos do sistema.
+    allcontacts = await ContatoModel.listAll();
+
+    res.render('index', {
+        contacts: allcontacts
+    });
 }
 
 exports.trataPost = (req, res) => {

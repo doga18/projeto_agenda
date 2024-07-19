@@ -1,0 +1,54 @@
+<%- include('includes/head'); %>
+<%- include('includes/nav'); %>
+
+
+<div class="container">  
+  <div class="row">
+      <div class="col-lg-8 my-3">
+          <h1 class="display-1 text-center">Contatos</h1>
+          <p class="text-center lead">
+            Criei ou edite seu contato.
+          </p>
+      </div>
+      
+      <%- include('includes/messages') %>
+
+      <div class="row">
+        <div class="col">
+            <h4>
+                Cadastre o novo contato
+            </h4>            
+            <% if(contato) { %>
+              <form action="/contato/edit" method="POST" class="mb-5">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="namehelp" name="name" value="<%= contato.name %>">
+                    <div id="namehelp" class="form-text">Nome do novo contato</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Sobrenome" class="form-label">Sobrenome</label>
+                    <input type="text" name="lastname" id="lastname" class="form-control" aria-describedby="lastnamehelp" value="<%= contato.lastname %>">
+                    <div class="form-text" id="lastnamehelp">Sobrenome do novo contato</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="tel" class="form-label">Telefone</label>
+                    <input type="tel" name="tel" id="tel" class="form-control" aria-describedby="telhelp" value="<%= contato.tel %>">
+                    <div class="form-text" id="telhelp">Telefone do novo contato</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" aria-describedby="emailhelp" value="<%= contato.email %>">
+                    <div class="form-text" id="emailhelp">Sobrenome do novo contato</div>
+                  </div>
+                
+                <button type="submit" class="btn btn-primary">Editar contato</button>
+                <a href="/contato/index" class="btn btn-danger">Cancelar Edição</a>                
+              </form>
+            <% } %>
+        </div>
+  </div>
+</div>
+
+
+<%- include('includes/footer'); %>

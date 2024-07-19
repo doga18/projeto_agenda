@@ -3,7 +3,11 @@ const router = express.Router();
 const homeController = require('./src/controllers/homeController');
 const loginController = require('./src/controllers/loginController');
 const dashboardController = require('./src/controllers/dashboardController');
-//const contatoController = require('./src/controllers/contatoController');
+const contatoController = require('./src/controllers/contatoController');
+
+// Importando o middleware para proteger a rota.
+
+const { loginRequired } = require('./src/middlewares/middleware');
 
 
 // function meuMiddleware(req, res, next) {
@@ -26,6 +30,11 @@ router.get('/login/logout', loginController.logout)
 router.get('/dashboard', dashboardController.index)
 
 // Rotas do contato
+router.get('/contato/index', loginRequired, contatoController.index);
+router.post('/contato/register', loginRequired, contatoController.register);
+
+// Rota de Edit
+router.get('/contato/index/:id', loginRequired, contatoController.editIndex);
 //router.get('/contato', contatoController.paginaInicial);
 
 module.exports = router;
